@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.Drive.Autonomous;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
-import org.firstinspires.ftc.teamcode.Hardware.Intake;
 import org.firstinspires.ftc.teamcode.Hardware.Mecanum;
 
 @Autonomous
