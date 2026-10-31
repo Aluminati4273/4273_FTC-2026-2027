@@ -25,7 +25,7 @@ public class MainDrive extends OpMode{
 
         }
         else{
-            mecanum.playerDrive(-gamepad1.right_stick_y, -gamepad1.right_stick_x, gamepad1.left_stick_y);
+            mecanum.playerDrive(-gamepad1.right_stick_y, -gamepad1.right_stick_x, gamepad1.left_stick_x);
         }
         if(gamepad1.triangle){
             mecanum.forward(1);
