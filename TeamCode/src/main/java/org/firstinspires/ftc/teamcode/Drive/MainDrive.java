@@ -27,6 +27,20 @@ public class MainDrive extends OpMode{
         else{
             mecanum.playerDrive(-gamepad1.right_stick_x, -gamepad1.right_stick_y, gamepad1.left_stick_x);
         }
+        if(gamepad1.triangle){
+            mecanum.forward(1);
+        }
+        if(gamepad1.x){
+            mecanum.backward(1);
+        }if(gamepad1.square){
+            mecanum.left(1);
+        }if(gamepad1.square){
+            mecanum.right(1);
+        }if(gamepad1.dpad_up){
+            mecanum.turnLeft(1);
+        }if(gamepad1.dpad_right){
+            mecanum.right(1);
+        }
 
         telemetry.update();
 
