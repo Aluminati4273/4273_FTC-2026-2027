@@ -6,9 +6,6 @@ import com.qualcomm.robotcore.hardware.HardwareMap;
 import static org.firstinspires.ftc.robotcore.external.BlocksOpModeCompanion.gamepad1;
 
 public class Mecanum {
-    public double strafe;
-    public double twist;
-    public double drive;
     public DcMotor fl;
     public DcMotor fr;
     public DcMotor bl;
@@ -25,54 +22,46 @@ public class Mecanum {
         bl.setDirection(DcMotor.Direction.FORWARD);
     }
 
-    public void playerDrive(double strafe, double drive, double twist) {
+    public void playerDrive(double inputX, double inputY, double inputTurn) {
 //user Inputs
-        this.strafe = strafe;
-        this.drive = drive;
-        this.twist = twist;
+        double x = inputX;
+        double y = -inputY;
+        double turn = inputTurn;
 
-        double[] speeds = {
-                (drive + strafe + twist),
-                (drive - strafe - twist),
-                (drive - strafe + twist),
-                (drive + strafe - twist)
-        };
+// Turning the imports into actual movement
+        double theta = Math.atan2(y, x);
+        double power = Math.hypot(x, y);
+        double sin = Math.sin(theta - Math.PI / 4);
+        double cos = Math.cos(theta - Math.PI / 4);
+        double max = Math.max(Math.abs(sin), Math.abs(cos));
+//This is the conversion to motors currently we need to create the names for the motors
 
-        double max = Math.abs(speeds[0]);
-        for(int i = 0; i < speeds.length; i++) {
-            if ( max < Math.abs(speeds[i]) ) max = Math.abs(speeds[i]);
+        double leftFront = power * cos / max - turn;
+        double rightFront = power * sin / max + turn;
+        double leftBack = power * sin / max - turn;
+        double rightBack = power * cos / max + turn;
+
+// This is because some of the motors will go over 1 so to stop that this if statement is there.
+        // Don't worry all the wheel stuff is here.
+
+
+        if ((power + Math.abs(turn)) > 1) {
+            leftFront /= power - turn;
+            rightFront /= power + turn;
+            leftBack /= power - turn;
+            rightBack /= power + turn;
         }
 
-        // If and only if the maximum is outside of the range we want it to be,
-        // normalize all the other speeds based on the given speed value.
-        if (max > 1) {
-            for (int i = 0; i < speeds.length; i++) speeds[i] /= max;
-        }
-
-        // apply the calculated values to the motors.
-        fl.setPower(speeds[0]);
-        fr.setPower(speeds[1]);
-        bl.setPower(speeds[2]);
-        br.setPower(speeds[3]);
-
+            //This will set the direction and power to the motors
+        fl.setPower(leftFront);
+        fr.setPower(rightFront);
+        bl.setPower(leftBack);
+        br.setPower(rightBack);
     }
     //For this section It is Important to
     // know that the values for the speeds have to be between 0-1
     //If above the value 1 it won't work; negatives will have the opposite effect
     // than intendedand, also below -1 will also stop wo
-
-    public double getflPower(){
-        return fl.getPower();
-    }
-    public double getfrPower(){
-        return fr.getPower();
-    }
-    public double getblPower(){
-        return bl.getPower();
-    }
-    public double getbrPower(){
-        return br.getPower();
-    }
 
     //My hope with this is to make the robot turn 90 degrees. will need to be paired with a -
     //Time so that it will actually turn 90 degrees. Input time found from testing here:

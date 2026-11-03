@@ -25,7 +25,11 @@ public class MainDrive extends OpMode{
 
         }
         else{
+<<<<<<< HEAD
             mecanum.playerDrive(-gamepad1.right_stick_y, -gamepad1.right_stick_x, gamepad1.left_stick_x);
+=======
+            mecanum.playerDrive(-gamepad1.right_stick_x, -gamepad1.right_stick_y, gamepad1.left_stick_x);
+>>>>>>> parent of 7d93b2e (drive)
         }
         if(gamepad1.triangle){
             mecanum.forward(1);
@@ -39,13 +43,8 @@ public class MainDrive extends OpMode{
         }if(gamepad1.dpad_up){
             mecanum.turnLeft(1);
         }if(gamepad1.dpad_right){
-            mecanum.turnRight(1);
+            mecanum.right(1);
         }
-
-        telemetry.addData("Front Left", mecanum.getflPower());
-        telemetry.addData("Front Right", mecanum.getfrPower());
-        telemetry.addData("Back Left", mecanum.getblPower());
-        telemetry.addData("Back Right", mecanum.getbrPower());
 
         telemetry.update();
 
