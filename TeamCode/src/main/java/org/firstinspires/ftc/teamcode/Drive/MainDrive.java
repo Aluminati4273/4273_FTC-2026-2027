@@ -2,49 +2,52 @@ package org.firstinspires.ftc.teamcode.Drive;
 
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
+
+import org.firstinspires.ftc.teamcode.Hardware.Intake;
+import org.firstinspires.ftc.teamcode.Hardware.Launch;
 import org.firstinspires.ftc.teamcode.Hardware.Lights.Prism.PrismAnimations;
-import org.firstinspires.ftc.teamcode.Hardware.Mecanum;
+import org.firstinspires.ftc.teamcode.Hardware.Mecanum_Hope;
 
 @TeleOp
 public class MainDrive extends OpMode{
-    Mecanum mecanum = new Mecanum();
-    PrismAnimations.Solid solid = new PrismAnimations.Solid();
+    Mecanum_Hope mecanum = new Mecanum_Hope();
+    Intake intake = new Intake();
+    Launch launch = new Launch();
+
+    //Setting hardware map
     @Override
     public void init() {
         mecanum.init(hardwareMap);
+        intake.init(hardwareMap);
+        launch.init(hardwareMap);
         telemetry.addData("Status", "Initialized");
 
     }
 
 
-
+    //TeleOp Mode of the game
     @Override
     public void loop(){
+
+        //drive
+        //this is to slow done the speed of the robot for exact aiming to score
         if(gamepad1.left_bumper){
             mecanum.playerDrive(-gamepad1.right_stick_x/2, -gamepad1.right_stick_y/2, gamepad1.left_stick_x/2);
-
         }
+        //Normal drive
         else{
-<<<<<<< HEAD
-            mecanum.playerDrive(-gamepad1.right_stick_y, -gamepad1.right_stick_x, gamepad1.left_stick_x);
-=======
+            /*
+            revert back to this if it doesn't work
             mecanum.playerDrive(-gamepad1.right_stick_x, -gamepad1.right_stick_y, gamepad1.left_stick_x);
->>>>>>> parent of 7d93b2e (drive)
+             */
+            mecanum.playerDrive(-gamepad1.left_stick_x, -gamepad1.left_stick_y, gamepad1.right_stick_x);
         }
-        if(gamepad1.triangle){
-            mecanum.forward(1);
-        }
-        if(gamepad1.x){
-            mecanum.backward(1);
-        }if(gamepad1.square){
-            mecanum.left(1);
-        }if(gamepad1.square){
-            mecanum.right(1);
-        }if(gamepad1.dpad_up){
-            mecanum.turnLeft(1);
-        }if(gamepad1.dpad_right){
-            mecanum.right(1);
-        }
+
+        //intake temparary code
+        intake.intake(gamepad1.a);
+
+        //launch temaparary code
+        launch.launch(gamepad1.right_trigger);
 
         telemetry.update();
 
