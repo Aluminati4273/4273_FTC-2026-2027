@@ -30,16 +30,12 @@ public class MainDrive extends OpMode{
     public void loop(){
 
         //drive
-        //this is to slow done the speed of the robot for exact aiming to score
+        //this is too slow done the speed of the robot for exact aiming to score
         if(gamepad1.left_bumper){
-            mecanum.playerDrive(-gamepad1.right_stick_x/2, -gamepad1.right_stick_y/2, gamepad1.left_stick_x/2);
+            mecanum.playerDrive(-gamepad1.left_stick_x, -gamepad1.left_stick_y, gamepad1.right_stick_x);
         }
         //Normal drive
         else{
-            /*
-            revert back to this if it doesn't work
-            mecanum.playerDrive(-gamepad1.right_stick_x, -gamepad1.right_stick_y, gamepad1.left_stick_x);
-             */
             mecanum.playerDrive(-gamepad1.left_stick_x, -gamepad1.left_stick_y, gamepad1.right_stick_x);
         }
 

@@ -6,7 +6,7 @@ public class Intake {
 
     public DcMotor intake;
     public void init(HardwareMap hwMap) {
-        intake = hwMap.get(DcMotor.class, "");
+        intake = hwMap.get(DcMotor.class, "james");
     }
 
     public void intake(boolean button){
